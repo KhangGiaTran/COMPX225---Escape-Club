@@ -2,6 +2,7 @@ CREATE TABLE Costume (
     costume_id INT PRIMARY KEY,
     current_price DECIMAL(10, 2) NOT NULL,
     costume_name VARCHAR(50) NOT NULL,
+    costume_type VARCHAR(50) NOT NULL,
     description VARCHAR(255),
     image_url VARCHAR(255),
     location_id INT NOT NULL,
