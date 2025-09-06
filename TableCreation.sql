@@ -3,6 +3,7 @@ CREATE TABLE Costume (
     current_price DECIMAL(10, 2) NOT NULL,
     costume_name VARCHAR(50) NOT NULL,
     costume_type VARCHAR(50) NOT NULL,
+    count INT NOT NULL,
     description VARCHAR(255),
     image_url VARCHAR(255),
     location_id INT NOT NULL,
@@ -19,15 +20,18 @@ CREATE TABLE Category (
 
 CREATE TABLE Booking (
     booking_id INT PRIMARY KEY,
+    master_booking_id INT NOT NULL,
     customer_id INT NOT NULL,
     rent_date DATE NOT NULL,
     return_date DATE NOT NULL,
+    duration INT NOT NULL,
 
     costume_id INT NOT NULL,
     cost DECIMAL(10, 2) NOT NULL,
 
     FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
-    FOREIGN KEY (costume_id) REFERENCES Costume(costume_id)
+    FOREIGN KEY (costume_id) REFERENCES Costume(costume_id),
+    FOREIGN KEY (master_booking_id) REFERENCES Booking(master_booking_id)
 )
 
 
@@ -60,5 +64,6 @@ CREATE TABLE Customer (
     customer_id INT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     address VARCHAR(200) NOT NULL,
-    phone_number VARCHAR(15)
+    phone_number VARCHAR(15) NOT NULL,
+    email VARCHAR(100) NOT NULL
 )
