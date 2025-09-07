@@ -22,7 +22,10 @@ CREATE TABLE Customer (
     name VARCHAR(50) NOT NULL,
     address VARCHAR(200) NOT NULL,
     phone_number VARCHAR(15) NOT NULL,
-    email VARCHAR(100) NOT NULL
+    email VARCHAR(100) NOT NULL,
+
+    CONSTRAINT email_format CHECK (email LIKE '%@%.%'),
+    CONSTRAINT phone_number_format CHECK (phone_number REGEXP '^[0-9]+$' AND LENGTH(phone_number) >= 8 AND LENGTH(phone_number) <= 10)
 );
 
 CREATE TABLE Costume (
@@ -36,7 +39,10 @@ CREATE TABLE Costume (
     location_id INT NOT NULL,
     category_id INT NOT NULL,
     FOREIGN KEY (location_id) REFERENCES Location(location_id),
-    FOREIGN KEY (category_id) REFERENCES Category(category_id)
+    FOREIGN KEY (category_id) REFERENCES Category(category_id),
+
+    CONSTRAINT count_non_negative CHECK (count >= 0),
+    CONSTRAINT price_non_negative CHECK (current_price >= 0)
 );
 
 CREATE TABLE Booking (
@@ -52,7 +58,11 @@ CREATE TABLE Booking (
 
     FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
     FOREIGN KEY (costume_id) REFERENCES Costume(costume_id),
-    FOREIGN KEY (master_booking_id) REFERENCES Booking(booking_id)
+    FOREIGN KEY (master_booking_id) REFERENCES Booking(booking_id),
+
+    CONSTRAINT duration_positive CHECK (duration > 0),
+    CONSTRAINT cost_non_negative CHECK (cost >= 0),
+    CONSTRAINT return_after_rent CHECK (return_date > rent_date)
 );
 
 
@@ -65,5 +75,7 @@ CREATE TABLE Repair (
     staff_id INT NOT NULL,
     
     FOREIGN KEY (booking_id) REFERENCES Booking(booking_id),
-    FOREIGN KEY (staff_id) REFERENCES Staff(staff_id)
+    FOREIGN KEY (staff_id) REFERENCES Staff(staff_id),
+
+    CONSTRAINT price_non_negative CHECK (price >= 0)
 );
