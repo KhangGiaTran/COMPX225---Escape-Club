@@ -36,6 +36,6 @@ INSERT INTO Booking (booking_id, master_booking_id, customer_id, rent_date, retu
 
 INSERT INTO Repair (repair_id, price, description, booking_id, staff_id) VALUES
 (1, 50.0, 'Repair for Booking 1', 1, 1),
-(2, 50.0, 'Repair for Booking 2', 3, 2),
-(3, 50.0, 'Repair for Booking 3', 2, 3),
+(2, 50.0, 'Repair for Booking 2', 2, 2),
+(3, 50.0, 'Repair for Booking 3', 3, 3),
 (4, 50.0, 'Repair for Booking 4', 4, 4);
